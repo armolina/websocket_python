@@ -1,0 +1,16 @@
+version: '3.3'
+services:    
+    server_srv:
+        build:
+            context: .
+            dockerfile: ./server_srv/Dockerfile       
+        ports:
+            - "8765:8765"
+    client_srv:
+        build:
+            context: .
+            dockerfile: ./client_srv/Dockerfile
+        environment:
+             - WEBSOCKET_URI=ws://server_srv:8765
+        depends_on:
+            - server_srv
